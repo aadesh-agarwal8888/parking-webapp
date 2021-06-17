@@ -1,0 +1,28 @@
+{
+    "parkingDetails": {
+        "id": "id",
+        "name": "Dmart",
+        "address": {
+            "street": "xyz",
+            "state": "maha",
+            "city": "pune",
+            "pincode": 411001
+        },
+        "totalSlots": 10
+    },
+    "parkingCharges": 50,
+    "slots": [
+        {
+            "slot1": "free"
+        },
+        {
+            "slot2": "free"
+        },
+        {
+            "slot3": "reserved"
+        },
+        {
+            "slot2": "occupied"
+        }
+    ]
+}
