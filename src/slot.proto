@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./";
+
+service SlotService {
+    rpc GetSlotDetails (SlotDetailsRequest) returns (SlotDetailsResponse);
+    rpc GetFreeSlot (FreeSlotRequest) returns (FreeSlotResponse);
+    rpc UpdateSlotStatus (UpdateSlotStatusRequest) returns (UpdateSlotStatusResponse);
+    rpc GetParkingSlots (ParkingSlotsRequest) returns (ParkingSlotsResponse);
+}
+
+message SlotDetailsRequest {
+    string id = 1;
+}
+
+message SlotDetailsResponse {
+    string parkingAreaId = 1;
+    string slotNo = 2;
+    string status = 3;
+}
+
+message FreeSlotRequest {
+    string id = 1;
+}
+
+message FreeSlotResponse {
+    bool available = 1;
+    string id = 2;
+}
+
+message Slot {
+    string id = 1;
+    string parking_area_id = 2;
+    string node_id = 3;
+    string slot_no = 4;
+    string status = 5;
+    string lock = 6;
+}
+
+message UpdateSlotStatusRequest {
+    string id = 1;
+    string status = 2;
+    string node_id = 3; 
+}
+
+message UpdateSlotStatusResponse {
+    bool updated = 1;
+}
+
+message ParkingSlotsRequest {
+    string id = 1;
+}
+
+message ParkingSlotsResponse {
+    repeated ParkingSlot parkingSlots = 1;
+}
+
+message ParkingSlot {
+    string id = 1;
+    string parkingAreaId = 2;
+    string nodeId = 3;
+    string slotNo = 4;
+    string status = 5;
+    string lock = 6;
+}

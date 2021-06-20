@@ -21,10 +21,8 @@ import park8 from './image/park8.png';
 import Modal from 'react-modal';
 import { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-
-
-
-
+import { useHistory } from 'react-router-dom';
+import DashboardNavbar from './DashboardNavbar';
 
 const drawerWidth = 240;
 const modstyle={
@@ -94,10 +92,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashnavbar() {
+function Dashnavbar(props) {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = React.useState({});
+
+  React.useEffect(() => {
+      fetch("http://localhost:9090/admin/60a67ba2e9200da3e0f34250")
+      .then((response) => {
+          response.json()
+          .then(data => {
+              setData(data);
+              console.log(data);
+          })
+      });
+    
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -106,149 +118,108 @@ export default function Dashnavbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-const [modalisopen,setmodalopen]=useState(false);
-const [myrate,changerate]=useState({
-  rate:"",
-  
-  
-});
-const inputEvent= (event)=>{
-  console.log(event.target.value);
-const {name,value}=event.target;
-changerate((preValue)=>{
-  return{...preValue,
-  [name]:value,}
 
-});
-};
-let cost   //cost to be used for database
-const modfunction=()=>{
-  setmodalopen(true);
-  cost=myrate.rate;
-  console.log(cost);
-  
-};
+  const [modalisopen,setmodalopen]=useState(false);
 
+  const [myrate,changerate]=useState({
+    rate:"",
+    
+    
+  });
+
+  const inputEvent= (event)=>{
+    console.log(event.target.value);
+  const {name,value}=event.target;
+  changerate((preValue)=>{
+    return{...preValue,
+    [name]:value,}
+
+  });
+  };
+
+  let cost   //cost to be used for database
+  const modfunction=()=>{
+    setmodalopen(true);
+    cost=myrate.rate;
+    console.log(cost);
+    
+  };
+
+  const history = useHistory();
+
+  
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Elios Tech
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['Home Screen', 'Change rate', 'Maintainance', 'Support','About us'].map((text, index) => (
-            <ListItem button key={text}>
-              
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-    
-    
-      </Drawer>
+      <DashboardNavbar />
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
-        <div className="container" style={{margin:"auto"}} >
-  <div className="row">
-    <div className="col-sm">
-      <div class="card" style={{padding:'30px'}}>
-      <img class="card-img-top" src={park8} alt="Card image cap" height="200px"/>
-  <div class="card-body">
-    <Modal isOpen={modalisopen} style={modstyle}>
-      <h2>Change Rate</h2>
-      <p>You can change the rate for parking per hour</p>
-      <form className={classes.form} noValidate>
-          <TextField
-            variant="standard"
-            margin="normal"
-            required
-            fullWidth
-            id="rate"
-            label="Enter Updated Rate"
-            name="rate"
-            autoComplete="email"
-            autoFocus
-            onChange={inputEvent}
-            value={myrate.rate}
-         
-          />
-        </form>
-            <button className="btn btn-primary" onClick={()=> setmodalopen(false)}>Submit</button>
-    </Modal>
-    <h5 class="card-title">Change Rate</h5>
-    <p class="card-text">You can easily change your rate for parking</p>
-    <button className="btn btn-primary" onClick={()=> modfunction()}>Change Rate</button>
-  </div>
-</div>
-
-    </div>
-    <div className="col-sm">
-      <div class="card" style={{padding:'30px'}}>
-  <img class="card-img-top" src={park7} alt="Card image cap" height="200px"/>
-  <div class="card-body">
-    <h5 class="card-title">Show Parking Status</h5>
-    <p class="card-text">Select this to easily check status for parking slots</p>
-    <button className="btn btn-primary">Check Status</button>
-  </div>
-</div>
-
-    </div>
-    <div className="col-sm">
-      <div class="card" style={{padding:'30px'}}>
-  <img class="card-img-top" src={park6} alt="Card image cap" height="200px"/>
-  <div class="card-body">
-    <h5 class="card-title">Maintainance</h5>
-    <p class="card-text">Now you can easily block the slots for maintanance purpose</p>
-    <a href="#" class="btn btn-primary">Maintain Slots</a>
-  </div>
-</div>
-
-    </div>
-    
-  </div>
-</div>
-     <div className="text-center text danger text-capitalize my-5">
-        <h1> 1000 vehicles have been registered uptill now</h1>
-     </div>
+          <div className="container" style={{margin:"auto"}} >
+            <div className="row">
+              <div className="col-sm">
+                <div class="card" style={{padding:'30px'}}>
+                  <img class="card-img-top" src={park8} alt="Card image cap" height="200px"/>
+                  <div class="card-body">
+                    <Modal isOpen={modalisopen} style={modstyle} onHide>
+                      <h2>Change Rate</h2>
+                      <p>You can change the rate for parking per hour</p>
+                      <form className={classes.form} noValidate>
+                        <TextField
+                          variant="standard"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="rate"
+                          label="Enter Updated Rate"
+                          name="rate"
+                          autoComplete="email"
+                          autoFocus
+                          onChange={inputEvent}
+                          value={myrate.rate}
+                        />
+                      </form>
+                      <button className="btn btn-primary" onClick={()=> setmodalopen(false)}>Submit</button>
+                    </Modal>
+                    <h5 class="card-title">Change Rate</h5>
+                    <p class="card-text">You can easily change your rate for parking</p>
+                    <button className="btn btn-primary" onClick={()=> modfunction()}>Change Rate</button>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm">
+                <div class="card" style={{padding:'30px'}}>
+                  <img class="card-img-top" src={park7} alt="Card image cap" height="200px"/>
+                  <div class="card-body">
+                    <h5 class="card-title">{data.name}</h5>
+                    <p class="card-text">Address: Dapodi, Pune 411012, Maharashtra</p>
+                    <h4 class="card-title"> Charges: 50</h4>
+                    {/*<button className="btn btn-primary" onClick = {() => history.push("/home/slots")}>Check Status</button>*/}
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm">
+                <div class="card" style={{padding:'30px'}}>
+                <img class="card-img-top" src={park6} alt="Card image cap" height="200px"/>
+                <div class="card-body">
+                  <h5 class="card-title">Maintainance</h5>
+                  <p class="card-text">Now you can easily block the slots for maintanance purpose</p>
+                  <a href="/home/slots/manipulate" class="btn btn-primary">Maintain Slots</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-center text danger text-capitalize my-5">
+            <h1> 1000 vehicles have been registered uptill now</h1>
+        </div>
       </main>
     </div>
   );
 }
+
+export default Dashnavbar

@@ -5,11 +5,14 @@ import park3 from './image/park3.jpg';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import './Navbar.css';
+import Navbar from './Navbar';
 
 
 const About= ()=> {
     
      return( <>
+     <div>
+       <Navbar />
      <h1 className="text-center text danger text-capitalize my-5"> Welcome to the world of Elios tech</h1>
      <div className="container" style={{margin:"auto"}} >
   <div className="row">
@@ -48,6 +51,7 @@ const About= ()=> {
     </div>
     
   </div>
+</div>
 </div>
          </>) 
       };

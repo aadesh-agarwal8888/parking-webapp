@@ -14,9 +14,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Slotmanipulate from './Slotmanipulate';
 
 ReactDOM.render(
-<BrowserRouter>
-  <Dashboard/>
-</BrowserRouter>  , document.getElementById('root')
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>, 
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

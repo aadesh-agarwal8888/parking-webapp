@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Navbar from './Navbar';
 import { LocalGasStation } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 
@@ -31,13 +32,11 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0),
   },
 }));
 
@@ -69,8 +68,9 @@ export default function FirstSignIn() {
  
 
   return (
+    <div>
+      <Navbar />
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -163,9 +163,10 @@ export default function FirstSignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={3}>
         <Copyright />
       </Box>
         </Container> 
+    </div>
   );
 }

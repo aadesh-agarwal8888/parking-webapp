@@ -8,20 +8,28 @@ import Error from './Error';
 import Navbar from './Navbar';
 import About from './About';
 import Contactus from './Contactus';
+import Dashboard from './Dashboard';
+import Slotstatus from './Slotstatus';
+import Slotmanipulate from './Slotmanipulate';
 
 
 const App= ()=> {
   return( <>
-  <Switch>
- <Route path="/" exact component={Home}  />
- <Route path='/FirstSignIn' component={FirstSignIn}  />
- <Route path='/SignIn' component={SignIn}  />
- <Route path='/About' component={About}  />
- <Route path='/Contactus' component={Contactus}  />
- <Route component={Error}/>
-  </Switch>
-
-   </>) 
+    <div>
+      <Switch>
+        <Route path="/" exact component={Home}  />
+        <Route path='/FirstSignIn' component={FirstSignIn}  />
+        <Route path='/SignIn' component={SignIn}  />
+        <Route path='/About' component={About}  />
+        <Route path='/Contactus' component={Contactus}  />
+        <Route path="/home" exact component={Dashboard} />
+        <Route path='/home/slots/manipulate' exact component = {Slotmanipulate}/>
+        <Route path='/home/slots' exact component = {Slotstatus} />
+        <Route component={Error}/>
+      </Switch>
+    </div>
+   </>
+  );
 };
 
 export default App;
